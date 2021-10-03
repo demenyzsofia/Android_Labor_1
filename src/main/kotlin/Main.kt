@@ -1,16 +1,15 @@
 
 fun main(args: Array<String>) {
     //println("Hello World!")
-
     // Try adding program arguments at Run/Debug configuration
-    println("Program arguments: ${args.joinToString()}")
+    //println("Program arguments: ${args.joinToString()}")
 
     println("1.String template")
     val number1 = 2
     val number2= 3
     exercise1(number1,number2)
 
-    println("2.Immutable list")
+    println("\n2.Immutable list")
     val list=listOf<String>("Monday","Tuesday","Wednesday","Thursday","Friday", "Saturday","Sunday");
     exercise2(list)
 
@@ -22,22 +21,29 @@ fun main(args: Array<String>) {
     }
 
     println("\n\n4. encode and decode ")
-    val str="alma"
-    println("endocde: ${myEncode(str)}")
-    println("decode: ${myDecode(str)}")
-    //println("messageCoding: ${messageCoding(str,myEncode())}")
+    var str="alma"
+    println("the string: $str")
+    str=myEncode(str)
+    println("myendocde: $str")
+    str=myDecode(str)
+    println("mydecode: $str")
+    str=messageCoding(str,::myEncode)
+    println("messageCodinging with higher-order function (encode): $str")
+    str=messageCoding(str,::myDecode)
+    println("messageCodinging with higher-order function (dencode): $str")
 
-    println("5.  even numbers from a list ")
+    println("\n5.  even numbers from a list ")
     val list2= listOf<Int>(1,5,8,7,4,6,9,5,2,3)
+    println(list2)
     println(filterlist(list2))
 
-    println("6.Using map ")
+    println("\n6.Using map ")
     exercise6(list2,list)
 
     println("\n7.mutable list ")
     exercise7(list)
 
-    println("\n8.Arrays")
+    println("\n\n8.Arrays")
     exercise8()
 
 }
@@ -45,21 +51,18 @@ fun exercise1(a: Int , b: Int){
     println("$a + $b = ${a+b}")
 }
 fun exercise2(list: List<String>){
-    //prints the list to the standard outpu
+    println("The list:")
     for (day in list){
         print("$day ")
     }
-    println()
 
-    // filter to print the days starting with letter ‘T’
+    println("\n\ndays starting with letter ‘T’")
     list.filter{ it.startsWith("T") }.forEach { println(it) }
-    println()
 
-    //to print the days containing the letter ‘e’
+    println("\ndays containing the letter ‘e’")
     list.filter{ it.contains("e") }.forEach { println(it) }
-    println()
 
-    // print all the days of length 6 (e.g. Friday)
+    println("\ndays of length 6 (e.g. Friday)")
     list.filter{ it.length==6}.forEach { println(it) }
 
 }
@@ -109,6 +112,7 @@ fun filterlist(list: List<Int>):List<Int> = list.filter{ x -> x % 2 ==1}
 
 fun exercise6(list : List<Int>,list2 : List <String>){
     println("Double the elements of a list of integers and print it.")
+    println(list)
     list.map{it*2}.forEach{print("$it ")}
 
     println("\n\nPrint the days of week capitalized ")
@@ -148,24 +152,11 @@ fun exercise8(){
     println("\n\nthe sorted array")
     alist.sorted().forEach{(print("$it "))}
 
-    println("\n\narray contains any even number?")
-    var t =false
-    for (i in alist){
-        if (i % 2 == 0 ){
-            t=true
-        }
-    }
-    println(t)
+    println("\narray contains any even number?")
+    println(alist.any() { i : Int -> i % 2 == 0})
 
-    println("\n\nall the numbers are even?")
-    var t2 =true
-    for (i in alist){
-        if (i % 2 == 1 ){
-            t2=false
-        }
-    }
-    println(t)
-
+    println("\nall the numbers are even?")
+    println(alist.all() { i : Int -> i % 2 == 0})
 
     println("\naverage of generated numbers and print it")
     print(alist.average())
